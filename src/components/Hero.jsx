@@ -27,7 +27,7 @@ function Hero() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.1 }}
-        className="font-display text-6xl md:text-8xl font-extrabold mb-4 hero-gradient leading-tight"
+        className="font-display text-4xl sm:text-6xl md:text-8xl font-extrabold mb-4 hero-gradient leading-tight w-full px-4"
       >
         Mohammed<br />Masood
       </motion.h1>
@@ -80,22 +80,7 @@ function Hero() {
         </a>
       </motion.div>
 
-      {/* Scroll hint */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-10 flex flex-col items-center gap-2"
-        style={{ color: "var(--text-muted)" }}
-      >
-        <span className="text-xs tracking-widest uppercase font-display">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-          className="w-px h-8"
-          style={{ background: "var(--accent)" }}
-        />
-      </motion.div>
+
 
     </section>
   )
