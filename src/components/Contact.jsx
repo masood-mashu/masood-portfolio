@@ -1,22 +1,23 @@
 import { motion } from "framer-motion"
+import { Linkedin, Github, Mail } from "lucide-react"
 
 const contacts = [
   {
-    icon: "💼",
+    icon: <Linkedin size={28} />,
     label: "LinkedIn",
     value: "mohammed-masood-blr03",
     href: "https://www.linkedin.com/in/mohammed-masood-blr03",
     display: "linkedin.com/in/mohammed-masood-blr03"
   },
   {
-    icon: "🐙",
+    icon: <Github size={28} />,
     label: "GitHub",
     value: "masood-mashu",
     href: "https://github.com/masood-mashu",
     display: "github.com/masood-mashu"
   },
   {
-    icon: "✉️",
+    icon: <Mail size={28} />,
     label: "Email",
     value: "masoodmashu03@gmail.com",
     href: "mailto:masoodmashu03@gmail.com",
@@ -58,7 +59,7 @@ function Contact() {
             whileHover={{ x: 6 }}
             className="card rounded-xl px-6 py-5 flex items-center gap-5 group"
           >
-            <span className="text-3xl">{c.icon}</span>
+            <span style={{ color: "var(--accent)" }}>{c.icon}</span>
             <div className="flex-1">
               <div className="text-xs uppercase tracking-wider font-display font-semibold mb-1"
                 style={{ color: "var(--text-muted)" }}>
@@ -91,7 +92,7 @@ function Contact() {
           rel="noopener noreferrer"
           className="btn-glow inline-block font-display"
         >
-          ↓ Download Resume
+          Download Resume
         </a>
       </motion.div>
 

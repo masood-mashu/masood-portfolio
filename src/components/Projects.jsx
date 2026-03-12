@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import { Ship, Home, Eye } from "lucide-react"
 
 const projects = [
   {
@@ -8,7 +9,7 @@ const projects = [
     live: "https://titanic-dashboard-analysiss.streamlit.app",
     github: "https://github.com/masood-mashu/titanic-dashboard",
     status: "Live ✓",
-    emoji: "🚢"
+    icon: <Ship size={28} />,
   },
   {
     title: "House Price Predictor",
@@ -17,7 +18,7 @@ const projects = [
     live: "#",
     github: "#",
     status: "In Progress",
-    emoji: "🏠"
+    icon: <Home size={28} />,
   },
   {
     title: "Retinal Image Analysis",
@@ -26,7 +27,7 @@ const projects = [
     live: "#",
     github: "#",
     status: "In Progress",
-    emoji: "👁️"
+    icon: <Eye size={28} />,
   },
 ]
 
@@ -58,7 +59,7 @@ function Projects() {
             className="card rounded-2xl p-6 flex flex-col"
           >
             <div className="flex justify-between items-start mb-4">
-              <span className="text-3xl">{p.emoji}</span>
+              <span style={{ color: "var(--accent)" }}>{p.icon}</span>
               <span
                 className="text-xs px-3 py-1 rounded-full font-display font-semibold"
                 style={{

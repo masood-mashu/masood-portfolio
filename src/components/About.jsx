@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import { GraduationCap, School, MapPin, Briefcase, Target, Languages } from "lucide-react"
 
 const stats = [
   { value: "7.8", label: "CGPA", suffix: "/10" },
@@ -59,15 +60,15 @@ function About() {
           className="card rounded-2xl p-8 space-y-5"
         >
           {[
-            ["🎓", "Degree", "B.E. CSE (Data Science)"],
-            ["🏫", "College", "BIT Bangalore"],
-            ["📍", "Location", "Bangalore, India"],
-            ["💼", "Experience", "Innovant I.T. Solutions (5 months)"],
-            ["🎯", "Goal", "Data Analyst → Data Scientist"],
-            ["🌍", "Languages", "English, Kannada, Hindi, Urdu"],
+            [<GraduationCap size={20} />, "Degree", "B.E. CSE (Data Science)"],
+            [<School size={20} />, "College", "BIT Bangalore"],
+            [<MapPin size={20} />, "Location", "Bangalore, India"],
+            [<Briefcase size={20} />, "Experience", "Innovant I.T. Solutions (5 months)"],
+            [<Target size={20} />, "Goal", "Data Analyst → Data Scientist"],
+            [<Languages size={20} />, "Languages", "English, Kannada, Hindi, Urdu"],
           ].map(([icon, label, value]) => (
             <div key={label} className="flex items-start gap-3">
-              <span className="text-xl">{icon}</span>
+              <span style={{ color: "var(--accent)", marginTop: "2px" }}>{icon}</span>
               <div>
                 <span className="text-xs uppercase tracking-wider font-semibold font-display" style={{ color: "var(--text-muted)" }}>
                   {label}

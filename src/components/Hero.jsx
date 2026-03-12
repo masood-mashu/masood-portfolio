@@ -76,7 +76,7 @@ function Hero() {
           className="btn-outline font-display"
           style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
         >
-          ↓ Resume
+          Resume
         </a>
       </motion.div>
 

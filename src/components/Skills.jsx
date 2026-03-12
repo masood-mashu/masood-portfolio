@@ -1,10 +1,11 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
+import { Bot, Database, Globe, Wrench } from "lucide-react"
 
 const skillGroups = [
   {
     category: "Data & ML",
-    emoji: "🤖",
+    icon: <Bot size={22} />,
     skills: [
       { name: "Python", level: 80 },
       { name: "Pandas / NumPy", level: 78 },
@@ -15,7 +16,7 @@ const skillGroups = [
   },
   {
     category: "Data & Databases",
-    emoji: "🗄️",
+    icon: <Database size={22} />,
     skills: [
       { name: "SQL", level: 68 },
       { name: "MS Excel", level: 75 },
@@ -24,7 +25,7 @@ const skillGroups = [
   },
   {
     category: "Web Dev",
-    emoji: "🌐",
+    icon: <Globe size={22} />,
     skills: [
       { name: "React", level: 65 },
       { name: "HTML / CSS", level: 80 },
@@ -33,7 +34,7 @@ const skillGroups = [
   },
   {
     category: "Tools",
-    emoji: "🛠️",
+    icon: <Wrench size={22} />,
     skills: [
       { name: "VS Code", level: 90 },
       { name: "Git / GitHub", level: 70 },
@@ -98,7 +99,7 @@ function Skills() {
             className="card rounded-2xl p-8"
           >
             <div className="flex items-center gap-3 mb-6">
-              <span className="text-2xl">{group.emoji}</span>
+              <span style={{ color: "var(--accent)" }}>{group.icon}</span>
               <h3 className="font-display text-lg font-bold" style={{ color: "var(--accent)" }}>
                 {group.category}
               </h3>

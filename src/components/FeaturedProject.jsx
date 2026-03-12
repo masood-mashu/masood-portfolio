@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import { Star, BarChart2, Bot, TrendingUp, Palette, Ship } from "lucide-react"
 
 function FeaturedProject() {
   return (
@@ -20,17 +21,18 @@ function FeaturedProject() {
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-6">
             <span
-              className="text-xs uppercase tracking-widest font-display font-bold px-3 py-1 rounded-full"
+              className="flex items-center gap-2 text-xs uppercase tracking-widest font-display font-bold px-3 py-1 rounded-full"
               style={{ background: "rgba(34,211,238,0.12)", color: "var(--accent)", border: "1px solid var(--accent)" }}
             >
-              ⭐ Featured Project
+              <Star size={12} /> Featured Project
             </span>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="font-display text-3xl font-extrabold mb-4" style={{ color: "var(--text)" }}>
-                🚢 Titanic Survival<br />Dashboard
+              <h3 className="font-display text-3xl font-extrabold mb-4 flex items-center gap-3" style={{ color: "var(--text)" }}>
+                <Ship size={32} style={{ color: "var(--accent)" }} />
+                Titanic Survival<br />Dashboard
               </h3>
               <p className="text-base leading-relaxed mb-6" style={{ color: "var(--text-muted)" }}>
                 A complete data science project — from raw CSV to deployed web app.
@@ -59,17 +61,17 @@ function FeaturedProject() {
 
             <div className="grid grid-cols-2 gap-4">
               {[
-                { icon: "📊", label: "EDA", desc: "Full exploratory analysis" },
-                { icon: "🤖", label: "ML Model", desc: "Random Forest classifier" },
-                { icon: "📈", label: "Deployed", desc: "Live on Streamlit Cloud" },
-                { icon: "🎨", label: "Dark UI", desc: "Plotly dark theme charts" },
+                { icon: <BarChart2 size={24} />, label: "EDA", desc: "Full exploratory analysis" },
+                { icon: <Bot size={24} />, label: "ML Model", desc: "Random Forest classifier" },
+                { icon: <TrendingUp size={24} />, label: "Deployed", desc: "Live on Streamlit Cloud" },
+                { icon: <Palette size={24} />, label: "Dark UI", desc: "Plotly dark theme charts" },
               ].map((f) => (
                 <div
                   key={f.label}
                   className="rounded-xl p-4"
                   style={{ background: "var(--tag-bg)", border: "1px solid var(--border)" }}
                 >
-                  <div className="text-2xl mb-2">{f.icon}</div>
+                  <div className="mb-2" style={{ color: "var(--accent)" }}>{f.icon}</div>
                   <div className="font-display font-bold text-sm mb-1" style={{ color: "var(--text)" }}>{f.label}</div>
                   <div className="text-xs" style={{ color: "var(--text-muted)" }}>{f.desc}</div>
                 </div>
