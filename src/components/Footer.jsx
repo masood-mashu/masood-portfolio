@@ -1,7 +1,13 @@
 function Footer() {
   return (
-    <footer className="border-t border-gray-800 py-6 text-center text-gray-500">
-      © 2026 Mohammed Masood
+    <footer
+      className="py-8 text-center text-sm font-display"
+      style={{ borderTop: "1px solid var(--border)", color: "var(--text-muted)" }}
+    >
+      <span>Built with </span>
+      <span style={{ color: "var(--accent)" }}>React + Vite</span>
+      <span> · </span>
+      <span>© 2026 Mohammed Masood</span>
     </footer>
   )
 }

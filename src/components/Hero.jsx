@@ -3,63 +3,99 @@ import { TypeAnimation } from "react-type-animation"
 
 function Hero() {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center text-center px-6">
+    <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative overflow-hidden">
 
+      {/* Subtle bg circle */}
+      <div
+        className="absolute w-[500px] h-[500px] rounded-full blur-3xl opacity-10 pointer-events-none"
+        style={{ background: "radial-gradient(circle, var(--accent), var(--accent2))", top: "20%", left: "50%", transform: "translateX(-50%)" }}
+      />
+
+      {/* Badge */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="mb-6 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase"
+        style={{ border: "1px solid var(--border)", color: "var(--accent)", background: "var(--bg-card)" }}
+      >
+        Open to Internships & Data Roles
+      </motion.div>
+
+      {/* Name */}
       <motion.h1
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent"
+        transition={{ duration: 0.9, delay: 0.1 }}
+        className="font-display text-6xl md:text-8xl font-extrabold mb-4 hero-gradient leading-tight"
       >
-        Mohammed Masood
+        Mohammed<br />Masood
       </motion.h1>
 
-      <TypeAnimation
-        sequence={[
-          "I build Machine Learning models",
-          2000,
-          "I build Data Analysis Dashboards",
-          2000,
-          "I build AI-powered Applications",
-          2000
-        ]}
-        speed={50}
-        repeat={Infinity}
-        className="text-gray-400 text-xl mb-8"
-      />
+      {/* Type animation */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.6 }}
+        className="text-xl md:text-2xl mb-10 h-8"
+        style={{ color: "var(--text-muted)" }}
+      >
+        <TypeAnimation
+          sequence={[
+            "I build Machine Learning models",
+            2000,
+            "I build Data Analysis Dashboards",
+            2000,
+            "I build AI-powered Applications",
+            2000,
+            "CSE-DS @ BIT Bangalore",
+            2000,
+          ]}
+          speed={55}
+          repeat={Infinity}
+        />
+      </motion.div>
 
-    <div className="flex gap-4 flex-wrap justify-center">
+      {/* CTA Buttons */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7, duration: 0.6 }}
+        className="flex gap-4 flex-wrap justify-center"
+      >
+        <a href="#projects" className="btn-glow font-display">
+          View Projects
+        </a>
+        <a href="#contact" className="btn-outline font-display">
+          Contact Me
+        </a>
+        <a
+          href="/Mohammed-Masood-Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-outline font-display"
+          style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+        >
+          ↓ Resume
+        </a>
+      </motion.div>
 
-    <motion.a
-        href="#projects"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: "spring", stiffness: 300 }}
-        className="bg-cyan-500 text-black px-6 py-3 rounded-lg font-semibold"
-    >
-        View Projects
-    </motion.a>
-
-    <motion.a
-        href="#contact"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: "spring", stiffness: 300 }}
-        className="border border-cyan-500 text-cyan-400 px-6 py-3 rounded-lg hover:bg-cyan-500 hover:text-black"
-    >
-        Contact Me
-    </motion.a>
-
-    <motion.a
-        href="/resume.pdf"
-        target="_blank"
-        whileHover={{ scale: 1.1 }}
-        className="border border-gray-600 text-gray-300 px-6 py-3 rounded-lg hover:border-cyan-400 hover:text-cyan-400"
-    >
-        Download Resume
-    </motion.a>
-
-    </div>
+      {/* Scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-10 flex flex-col items-center gap-2"
+        style={{ color: "var(--text-muted)" }}
+      >
+        <span className="text-xs tracking-widest uppercase font-display">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+          className="w-px h-8"
+          style={{ background: "var(--accent)" }}
+        />
+      </motion.div>
 
     </section>
   )

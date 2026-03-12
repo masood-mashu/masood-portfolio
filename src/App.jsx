@@ -1,3 +1,4 @@
+import { ThemeProvider } from "./context/ThemeContext"
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
 import About from "./components/About"
@@ -10,17 +11,13 @@ import CursorGlow from "./components/CursorGlow"
 import ScrollProgress from "./components/ScrollProgress"
 import FeaturedProject from "./components/FeaturedProject"
 
-function App() {
+function AppContent() {
   return (
-    <div className="bg-black text-white min-h-screen relative">
-
+    <div className="portfolio-root min-h-screen relative transition-colors duration-500">
       <ScrollProgress />
-
       <CursorGlow />
       <ParticlesBg />
-
       <Navbar />
-
       <main>
         <Hero />
         <About />
@@ -29,10 +26,16 @@ function App() {
         <Skills />
         <Contact />
       </main>
-
       <Footer />
-
     </div>
+  )
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   )
 }
 
