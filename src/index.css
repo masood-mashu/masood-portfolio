@@ -1,115 +1,144 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   PORTFOLIO 2.0 — CSS FOUNDATION
+   Visual DNA: HTML portfolio palette + React portfolio structure
+   Fonts: Syne (display) · Space Mono (labels/code) · DM Sans (body)
+   ============================================================ */
+
 html {
   scroll-behavior: smooth;
 }
 
-/* ── DARK THEME (default) ── */
+/* ── DARK THEME (default) ─────────────────────────────────── */
 :root,
 html.dark {
-  --bg: #050510;
-  --bg-card: rgba(255,255,255,0.04);
-  --bg-card-hover: rgba(255,255,255,0.08);
-  --border: rgba(255,255,255,0.08);
-  --border-hover: rgba(34,211,238,0.6);
-  --text: #f0f0ff;
-  --text-muted: #8888aa;
-  --accent: #22d3ee;
-  --accent2: #818cf8;
-  --accent3: #f472b6;
-  --glow: rgba(34,211,238,0.15);
-  --nav-bg: rgba(5,5,16,0.75);
-  --tag-bg: rgba(255,255,255,0.06);
-  --shadow-glow: 0 0 30px rgba(34,211,238,0.25);
-  --particle-color: #22d3ee;
+  /* Core backgrounds */
+  --bg:            #080810;
+  --bg-card:       rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.07);
+
+  /* Borders */
+  --border:        rgba(255, 255, 255, 0.08);
+  --border-hover:  rgba(0, 245, 196, 0.5);
+
+  /* Text */
+  --text:          #e8e8f0;
+  --text-muted:    #6b6b80;
+
+  /* Accents — HTML portfolio palette */
+  --accent:        #00f5c4;
+  --accent2:       #7b61ff;
+  --accent3:       #f472b6;
+
+  /* Glow / shadow */
+  --glow:          rgba(0, 245, 196, 0.15);
+  --shadow-glow:   0 0 30px rgba(0, 245, 196, 0.2);
+
+  /* Navbar */
+  --nav-bg:        rgba(8, 8, 16, 0.80);
+
+  /* Tags */
+  --tag-bg:        rgba(255, 255, 255, 0.05);
+
+  /* Orbs */
+  --orb-1:         #7b61ff;
+  --orb-2:         #00f5c4;
+
+  /* Scroll bar */
+  --scrollbar-thumb: #00f5c4;
 }
 
-/* ── LIGHT THEME ── */
+/* ── LIGHT THEME ──────────────────────────────────────────── */
 html.light {
-  --bg: #f5f5ff;
-  --bg-card: rgba(0,0,0,0.04);
-  --bg-card-hover: rgba(0,0,0,0.07);
-  --border: rgba(0,0,0,0.1);
-  --border-hover: rgba(14,116,144,0.7);
-  --text: #0f0f1a;
-  --text-muted: #555577;
-  --accent: #0e7490;
-  --accent2: #4f46e5;
-  --accent3: #db2777;
-  --glow: rgba(14,116,144,0.1);
-  --nav-bg: rgba(245,245,255,0.85);
-  --tag-bg: rgba(0,0,0,0.06);
-  --shadow-glow: 0 0 30px rgba(14,116,144,0.15);
-  --particle-color: #0e7490;
+  --bg:            #f0f0f8;
+  --bg-card:       rgba(0, 0, 0, 0.04);
+  --bg-card-hover: rgba(0, 0, 0, 0.07);
+
+  --border:        rgba(0, 0, 0, 0.10);
+  --border-hover:  rgba(0, 160, 128, 0.6);
+
+  --text:          #0f0f1a;
+  --text-muted:    #555570;
+
+  --accent:        #00a080;
+  --accent2:       #5b3fd4;
+  --accent3:       #db2777;
+
+  --glow:          rgba(0, 160, 128, 0.12);
+  --shadow-glow:   0 0 30px rgba(0, 160, 128, 0.18);
+
+  --nav-bg:        rgba(240, 240, 248, 0.88);
+  --tag-bg:        rgba(0, 0, 0, 0.06);
+
+  --orb-1:         #7b61ff;
+  --orb-2:         #00a080;
+
+  --scrollbar-thumb: #00a080;
 }
 
-/* ── BASE ── */
+/* ── BASE ────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'DM Sans', sans-serif;
   background-color: var(--bg);
   color: var(--text);
+  overflow-x: hidden;
+  /* hide default cursor — CustomCursor.jsx handles it */
+  cursor: none;
   transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* re-show cursor on touch devices */
+@media (hover: none) {
+  body { cursor: auto; }
 }
 
 .portfolio-root {
   background-color: var(--bg);
+  position: relative;
 }
 
-/* ── TYPOGRAPHY ── */
-.font-display {
+/* ── NOISE OVERLAY (from HTML portfolio) ─────────────────── */
+.portfolio-root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────── */
+.font-display  { font-family: 'Syne', sans-serif; }
+.font-mono     { font-family: 'Space Mono', monospace; }
+
+/* ── SECTION LABEL (// 01. style from HTML portfolio) ─────── */
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* ── SECTION HEADING UNDERLINE ───────────────────────────── */
+.section-heading {
   font-family: 'Syne', sans-serif;
 }
-
-/* ── CARDS ── */
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(12px);
-  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-.card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-glow);
-}
-
-/* ── ACCENT TEXT ── */
-.text-accent { color: var(--accent); }
-.text-muted { color: var(--text-muted); }
-
-/* ── GRADIENT HERO TEXT ── */
-.hero-gradient {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── TAGS ── */
-.tag {
-  background: var(--tag-bg);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  font-size: 0.75rem;
-  padding: 3px 12px;
-  border-radius: 999px;
-  transition: border-color 0.2s, color 0.2s;
-}
-.tag:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-/* ── SCROLL BAR ── */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 999px; }
-
-/* ── SECTION HEADING UNDERLINE ── */
 .section-heading::after {
   content: '';
   display: block;
@@ -120,27 +149,71 @@ body {
   margin: 12px auto 0;
 }
 
-/* ── SKILL BAR ── */
-.skill-bar-track {
-  background: var(--border);
-  border-radius: 999px;
-  height: 6px;
-  overflow: hidden;
-}
-.skill-bar-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+/* ── GRADIENT HERO TEXT ──────────────────────────────────── */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 55%, var(--accent3) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* ── GLOW BUTTON ── */
-.btn-glow {
+/* ── CARDS ───────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition:
+    border-color 0.3s ease,
+    background   0.3s ease,
+    transform    0.3s ease,
+    box-shadow   0.3s ease;
+}
+.card:hover {
+  background:   var(--bg-card-hover);
+  border-color: var(--border-hover);
+  box-shadow:   var(--shadow-glow);
+}
+
+/* ── CHAMFERED (CLIP-PATH) BUTTON — from HTML portfolio ───── */
+.btn-primary {
+  display: inline-block;
   background: var(--accent);
   color: var(--bg);
-  font-weight: 600;
+  padding: 13px 30px;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: none;
+  transition: background 0.3s, transform 0.2s;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 12px) 0,
+    100% 12px,
+    100% 100%,
+    12px 100%,
+    0 calc(100% - 12px)
+  );
+}
+.btn-primary:hover {
+  background: var(--accent2);
+  transform: translateY(-2px);
+}
+
+/* ── GLOW BUTTON (rounded, for secondary CTAs) ───────────── */
+.btn-glow {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
   padding: 12px 28px;
   border-radius: 10px;
+  text-decoration: none;
+  cursor: none;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .btn-glow:hover {
@@ -148,11 +221,17 @@ body {
   box-shadow: 0 8px 25px var(--glow);
 }
 
+/* ── OUTLINE BUTTON ──────────────────────────────────────── */
 .btn-outline {
+  display: inline-block;
   border: 1.5px solid var(--accent);
   color: var(--accent);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
   padding: 12px 28px;
   border-radius: 10px;
+  text-decoration: none;
+  cursor: none;
   transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 .btn-outline:hover {
@@ -161,12 +240,61 @@ body {
   transform: translateY(-2px);
 }
 
-/* ── STAT CARD ── */
+/* secondary outline (dimmer, for resume btn) */
+.btn-outline-dim {
+  display: inline-block;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: none;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.btn-outline-dim:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ── TAGS ────────────────────────────────────────────────── */
+.tag {
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 3px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.tag:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── SKILL BAR ───────────────────────────────────────────── */
+.skill-bar-track {
+  background: var(--border);
+  border-radius: 999px;
+  height: 5px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+
+/* ── STAT CARD ───────────────────────────────────────────── */
 .stat-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px 32px;
+  padding: 28px 32px;
   text-align: center;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
@@ -175,20 +303,25 @@ body {
   box-shadow: var(--shadow-glow);
 }
 
-/* ── NAV LINK ── */
+/* ── NAV LINK ────────────────────────────────────────────── */
 .nav-link {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
   color: var(--text-muted);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  transition: color 0.2s;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: none;
+  transition: color 0.3s;
   position: relative;
 }
 .nav-link::after {
   content: '';
   position: absolute;
-  left: 0; bottom: -3px;
-  width: 0; height: 2px;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
   background: var(--accent);
   border-radius: 1px;
   transition: width 0.25s ease;
@@ -198,4 +331,212 @@ body {
 }
 .nav-link:hover::after {
   width: 100%;
+}
+
+/* ── MARQUEE (from HTML portfolio) ───────────────────────── */
+.marquee-section {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 60px;
+  animation: marquee 28s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.marquee-item {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.marquee-item .dot {
+  color: var(--accent);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* pause on hover */
+.marquee-section:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ── SCROLL INDICATOR (from HTML portfolio hero) ─────────── */
+.scroll-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scroll-line {
+  width: 40px;
+  height: 1px;
+  background: var(--text-muted);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  animation: scrollLine 2s ease infinite;
+}
+@keyframes scrollLine {
+  to { left: 100%; }
+}
+
+.scroll-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ── GLOWING ORBS (from HTML portfolio) ──────────────────── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.12;
+}
+.orb-1 {
+  width: 600px;
+  height: 600px;
+  background: var(--orb-1);
+  top: -200px;
+  right: -200px;
+  animation: orbFloat 8s ease-in-out infinite;
+}
+.orb-2 {
+  width: 400px;
+  height: 400px;
+  background: var(--orb-2);
+  bottom: 20%;
+  left: -150px;
+  animation: orbFloat 10s ease-in-out infinite reverse;
+}
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0); }
+  50%       { transform: translate(30px, -30px); }
+}
+
+/* ── CUSTOM CURSOR (styled here, controlled in CustomCursor.jsx) */
+.cursor-dot {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.15s ease;
+}
+.cursor-ring {
+  position: fixed;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: difference;
+  transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+}
+.cursor-dot.hovered  { transform: scale(2.5); }
+.cursor-ring.hovered {
+  width: 50px;
+  height: 50px;
+  opacity: 0.6;
+}
+
+/* ── SCROLL BAR ──────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 999px;
+}
+
+/* ── PROJECT CARD ACCENT LINE (from HTML portfolio) ─────── */
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.project-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* ── FADE-IN ANIMATION UTILITY ───────────────────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── SELECTION ───────────────────────────────────────────── */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ── FOCUS VISIBLE ───────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .orb-1 { width: 400px; height: 400px; }
+  .orb-2 { width: 280px; height: 280px; }
+}
+
+@media (max-width: 768px) {
+  .orb-1 { opacity: 0.08; }
+  .orb-2 { opacity: 0.08; }
+  .btn-primary,
+  .btn-glow,
+  .btn-outline,
+  .btn-outline-dim {
+    padding: 11px 22px;
+    font-size: 11px;
+  }
 }

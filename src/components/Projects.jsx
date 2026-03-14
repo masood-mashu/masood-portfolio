@@ -1,124 +1,305 @@
 import { motion } from "framer-motion"
-import { Ship, Home, Eye } from "lucide-react"
+import { Ship, Home, Eye, ExternalLink, Github } from "lucide-react"
 
-const projects = [
+/**
+ * Projects — Portfolio 2.0
+ *
+ * Visual DNA  : HTML portfolio (project number, sharp cards, top accent line,
+ *               project badge, section label)
+ * Content     : React portfolio (accurate tech stacks, correct descriptions)
+ *
+ * New additions:
+ * - "// 03. Projects" section label
+ * - Project number labels "01 ——" style from HTML portfolio
+ * - Both GitHub + Live links on every card
+ * - Fixed House Price Predictor — Random Forest as primary model (not Ridge/Lasso)
+ * - Status badges with correct styling
+ * - Staggered scroll-triggered card animations
+ */
+
+const PROJECTS = [
   {
-    title: "Titanic Survival Dashboard",
-    desc: "Full EDA + ML pipeline on the Titanic dataset. Data cleaning, feature engineering, visualizations, and a Random Forest model predicting passenger survival. Deployed live on Streamlit.",
-    tech: ["Python", "Pandas", "Scikit-learn", "Streamlit", "Plotly"],
-    live: "https://titanic-dashboard-analysiss.streamlit.app",
+    number: "01",
+    title:  "Titanic Survival Dashboard",
+    desc:   "Full EDA pipeline with data cleaning, interactive Plotly visualizations, and a Random Forest ML model predicting passenger survival. Deployed live on Streamlit Cloud.",
+    tech:   ["Python", "Pandas", "Scikit-learn", "Streamlit", "Plotly", "Seaborn"],
+    live:   "https://titanic-dashboard-analysiss.streamlit.app",
     github: "https://github.com/masood-mashu/titanic-dashboard",
-    status: "Live ✓",
-    icon: <Ship size={28} />,
+    status: "Live",
+    icon:   <Ship size={26} />,
   },
   {
-    title: "House Price Predictor",
-    desc: "Regression model using Ridge and Lasso on the California Housing dataset. Includes full EDA phase with correlation analysis, feature distribution, and model evaluation.",
-    tech: ["Python", "Ridge/Lasso", "Scikit-learn", "Seaborn"],
-    live: "#",
-    github: "#",
+    number: "02",
+    title:  "House Price Predictor",
+    desc:   "Regression-based ML project on the California Housing dataset. Random Forest as the primary model (R² ~80.5%), with full EDA, feature engineering, and an interactive Streamlit dashboard.",
+    tech:   ["Python", "Random Forest", "Scikit-learn", "Streamlit", "Seaborn"],
+    live:   null,
+    github: null,
     status: "In Progress",
-    icon: <Home size={28} />,
+    icon:   <Home size={26} />,
   },
   {
-    title: "Retinal Image Analysis",
-    desc: "Explainable Multi-Task Learning system for retinal image segmentation and pathology classification. Academic major project exploring medical AI.",
-    tech: ["PyTorch", "Deep Learning", "Medical AI", "Explainability"],
-    live: "#",
-    github: "#",
-    status: "In Progress",
-    icon: <Eye size={28} />,
+    number: "03",
+    title:  "Retinal Image Analysis",
+    desc:   "Research-level major project — Explainable Multi-Task Learning for retinal image segmentation and pathology classification. Includes a research paper. Team of 4.",
+    tech:   ["PyTorch", "Deep Learning", "XAI", "Medical Imaging", "Python"],
+    live:   null,
+    github: null,
+    status: "Research",
+    icon:   <Eye size={26} />,
   },
 ]
 
+// badge style per status
+const badgeStyle = (status) => {
+  if (status === "Live") return {
+    background: "rgba(0, 245, 196, 0.08)",
+    color:      "var(--accent)",
+    border:     "1px solid rgba(0, 245, 196, 0.3)",
+  }
+  if (status === "Research") return {
+    background: "rgba(123, 97, 255, 0.08)",
+    color:      "var(--accent2)",
+    border:     "1px solid rgba(123, 97, 255, 0.3)",
+  }
+  return {
+    background: "rgba(255,255,255,0.04)",
+    color:      "var(--text-muted)",
+    border:     "1px solid var(--border)",
+  }
+}
+
 function Projects() {
   return (
-    <section id="projects" className="py-32 px-6 max-w-6xl mx-auto">
+    <section
+      id="projects"
+      style={{ padding: "100px 60px", position: "relative", zIndex: 2 }}
+    >
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
-      >
-        <h2 className="font-display text-4xl md:text-5xl font-bold section-heading">
-          Projects
-        </h2>
-      </motion.div>
+        {/* ── Section label ──────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="section-label"
+        >
+          // 03. Projects
+        </motion.div>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {projects.map((p, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: i * 0.15 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -6 }}
-            className="card rounded-2xl p-6 flex flex-col"
-          >
-            <div className="flex justify-between items-start mb-4">
-              <span style={{ color: "var(--accent)" }}>{p.icon}</span>
-              <span
-                className="text-xs px-3 py-1 rounded-full font-display font-semibold"
+        {/* ── Section title ───────────────────────────────── */}
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.05 }}
+          viewport={{ once: true }}
+          className="font-display font-extrabold"
+          style={{
+            fontSize:     "clamp(32px, 5vw, 56px)",
+            marginBottom: "60px",
+            lineHeight:   "1.1",
+          }}
+        >
+          Things I've Built
+        </motion.h2>
+
+        {/* ── Project cards grid ──────────────────────────── */}
+        <div
+          style={{
+            display:             "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap:                 "2px",
+          }}
+          className="projects-grid"
+        >
+          {PROJECTS.map((p, i) => (
+            <motion.div
+              key={p.number}
+              initial={{ opacity: 0, y: 36 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: i * 0.12 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+              className="card project-card"
+              style={{
+                borderRadius: "4px",
+                padding:      "36px",
+                display:      "flex",
+                flexDirection:"column",
+              }}
+            >
+
+              {/* Top row — number + badge */}
+              <div
                 style={{
-                  background: p.status === "Live ✓" ? "rgba(34,211,238,0.12)" : "rgba(255,255,255,0.06)",
-                  color: p.status === "Live ✓" ? "var(--accent)" : "var(--text-muted)",
-                  border: `1px solid ${p.status === "Live ✓" ? "var(--accent)" : "var(--border)"}`,
+                  display:        "flex",
+                  justifyContent: "space-between",
+                  alignItems:     "center",
+                  marginBottom:   "20px",
                 }}
               >
-                {p.status}
-              </span>
-            </div>
-
-            <h3 className="font-display text-lg font-bold mb-3" style={{ color: "var(--text)" }}>
-              {p.title}
-            </h3>
-
-            <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: "var(--text-muted)" }}>
-              {p.desc}
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-5">
-              {p.tech.map((t) => (
-                <span key={t} className="tag">{t}</span>
-              ))}
-            </div>
-
-            <div className="flex gap-4">
-              {p.live !== "#" && (
-                <a
-                  href={p.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-display font-semibold transition-colors"
-                  style={{ color: "var(--accent)" }}
+                {/* Project number */}
+                <span
+                  className="font-mono"
+                  style={{
+                    fontSize:      "11px",
+                    color:         "var(--text-muted)",
+                    letterSpacing: "3px",
+                  }}
                 >
-                  Live Demo →
-                </a>
-              )}
-              {p.github !== "#" && (
-                <a
-                  href={p.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-display font-semibold transition-colors"
-                  style={{ color: "var(--text-muted)" }}
-                >
-                  GitHub →
-                </a>
-              )}
-              {p.live === "#" && p.github === "#" && (
-                <span className="text-sm font-display" style={{ color: "var(--text-muted)" }}>
-                  Coming soon...
+                  {p.number} ——
                 </span>
-              )}
-            </div>
 
-          </motion.div>
-        ))}
+                {/* Status badge */}
+                <span
+                  className="font-mono"
+                  style={{
+                    fontSize:      "9px",
+                    letterSpacing: "2px",
+                    textTransform: "uppercase",
+                    padding:       "4px 10px",
+                    ...badgeStyle(p.status),
+                  }}
+                >
+                  {p.status === "Live" ? "Live ✦" : p.status}
+                </span>
+              </div>
+
+              {/* Icon + title */}
+              <div
+                style={{
+                  display:      "flex",
+                  alignItems:   "center",
+                  gap:          "12px",
+                  marginBottom: "14px",
+                }}
+              >
+                <span style={{ color: "var(--accent)" }}>{p.icon}</span>
+                <h3
+                  className="font-display font-bold"
+                  style={{ fontSize: "18px", color: "var(--text)", lineHeight: "1.3" }}
+                >
+                  {p.title}
+                </h3>
+              </div>
+
+              {/* Description */}
+              <p
+                style={{
+                  color:        "var(--text-muted)",
+                  fontSize:     "13px",
+                  lineHeight:   "1.85",
+                  marginBottom: "22px",
+                  flex:         1,
+                }}
+              >
+                {p.desc}
+              </p>
+
+              {/* Tech tags */}
+              <div
+                style={{
+                  display:      "flex",
+                  flexWrap:     "wrap",
+                  gap:          "6px",
+                  marginBottom: "24px",
+                }}
+              >
+                {p.tech.map(t => (
+                  <span key={t} className="tag">{t}</span>
+                ))}
+              </div>
+
+              {/* Links */}
+              <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+                {p.live ? (
+                  <a
+                    href={p.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono"
+                    style={{
+                      display:       "inline-flex",
+                      alignItems:    "center",
+                      gap:           "6px",
+                      fontSize:      "11px",
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+                      color:         "var(--accent)",
+                      textDecoration:"none",
+                      transition:    "gap 0.3s",
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.gap = "10px"}
+                    onMouseLeave={e => e.currentTarget.style.gap = "6px"}
+                  >
+                    <ExternalLink size={12} />
+                    View Live
+                  </a>
+                ) : null}
+
+                {p.github ? (
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono"
+                    style={{
+                      display:       "inline-flex",
+                      alignItems:    "center",
+                      gap:           "6px",
+                      fontSize:      "11px",
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+                      color:         "var(--text-muted)",
+                      textDecoration:"none",
+                      transition:    "color 0.2s",
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.color = "var(--text)"}
+                    onMouseLeave={e => e.currentTarget.style.color = "var(--text-muted)"}
+                  >
+                    <Github size={12} />
+                    GitHub
+                  </a>
+                ) : null}
+
+                {!p.live && !p.github && (
+                  <span
+                    className="font-mono"
+                    style={{
+                      fontSize:      "11px",
+                      letterSpacing: "1.5px",
+                      textTransform: "uppercase",
+                      color:         "var(--text-muted)",
+                    }}
+                  >
+                    Coming Soon...
+                  </span>
+                )}
+              </div>
+
+            </motion.div>
+          ))}
+        </div>
+
       </div>
+
+      {/* Responsive */}
+      <style>{`
+        @media (max-width: 900px) {
+          .projects-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .projects-grid {
+            grid-template-columns: 1fr !important;
+          }
+          #projects {
+            padding: 80px 24px !important;
+          }
+        }
+      `}</style>
 
     </section>
   )
