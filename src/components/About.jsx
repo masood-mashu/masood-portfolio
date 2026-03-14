@@ -42,7 +42,8 @@ function About() {
   return (
     <section
       id="about"
-      style={{ padding: "100px 60px", position: "relative", zIndex: 2 }}
+      className="about-section"
+      style={{ position: "relative", zIndex: 2 }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
@@ -227,22 +228,6 @@ function About() {
         </div>
 
       </div>
-
-      {/* Responsive */}
-      <style>{`
-        @media (max-width: 768px) {
-          .about-grid {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-          }
-          .stats-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-          #about {
-            padding: 80px 24px !important;
-          }
-        }
-      `}</style>
 
     </section>
   )

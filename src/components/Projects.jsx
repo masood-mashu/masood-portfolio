@@ -73,7 +73,8 @@ function Projects() {
   return (
     <section
       id="projects"
-      style={{ padding: "100px 60px", position: "relative", zIndex: 2 }}
+      className="projects-section"
+      style={{ position: "relative", zIndex: 2 }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
@@ -218,7 +219,7 @@ function Projects() {
                     href={p.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono"
+                    className="font-mono project-link-live"
                     style={{
                       display:       "inline-flex",
                       alignItems:    "center",
@@ -230,8 +231,6 @@ function Projects() {
                       textDecoration:"none",
                       transition:    "gap 0.3s",
                     }}
-                    onMouseEnter={e => e.currentTarget.style.gap = "10px"}
-                    onMouseLeave={e => e.currentTarget.style.gap = "6px"}
                   >
                     <ExternalLink size={12} />
                     View Live
@@ -243,7 +242,7 @@ function Projects() {
                     href={p.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-mono"
+                    className="font-mono project-link-github"
                     style={{
                       display:       "inline-flex",
                       alignItems:    "center",
@@ -255,8 +254,6 @@ function Projects() {
                       textDecoration:"none",
                       transition:    "color 0.2s",
                     }}
-                    onMouseEnter={e => e.currentTarget.style.color = "var(--text)"}
-                    onMouseLeave={e => e.currentTarget.style.color = "var(--text-muted)"}
                   >
                     <Github size={12} />
                     GitHub
@@ -283,23 +280,6 @@ function Projects() {
         </div>
 
       </div>
-
-      {/* Responsive */}
-      <style>{`
-        @media (max-width: 900px) {
-          .projects-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-        }
-        @media (max-width: 600px) {
-          .projects-grid {
-            grid-template-columns: 1fr !important;
-          }
-          #projects {
-            padding: 80px 24px !important;
-          }
-        }
-      `}</style>
 
     </section>
   )

@@ -44,7 +44,8 @@ const TECH = ["Python", "Pandas", "Scikit-learn", "Streamlit", "Plotly", "Seabor
 function FeaturedProject() {
   return (
     <section
-      style={{ padding: "100px 60px", position: "relative", zIndex: 2 }}
+      className="featured-section"
+      style={{ position: "relative", zIndex: 2 }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
@@ -220,17 +221,12 @@ function FeaturedProject() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }}
                     viewport={{ once: true }}
+                    className="feature-tile"
                     style={{
                       background: "var(--tag-bg)",
                       border:     "1px solid var(--border)",
                       padding:    "24px 20px",
                       transition: "border-color 0.3s",
-                    }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.borderColor = "var(--border-hover)"
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.borderColor = "var(--border)"
                     }}
                   >
                     <div style={{ color: "var(--accent)", marginBottom: "10px" }}>
@@ -267,19 +263,6 @@ function FeaturedProject() {
         </motion.div>
 
       </div>
-
-      {/* Responsive */}
-      <style>{`
-        @media (max-width: 768px) {
-          .featured-grid {
-            grid-template-columns: 1fr !important;
-            gap: 36px !important;
-          }
-          #featured-section {
-            padding: 80px 24px !important;
-          }
-        }
-      `}</style>
 
     </section>
   )

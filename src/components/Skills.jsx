@@ -129,8 +129,8 @@ function Skills() {
   return (
     <section
       id="skills"
+      className="skills-section"
       style={{
-        padding:    "100px 60px",
         position:   "relative",
         zIndex:     2,
         background: "rgba(255,255,255,0.01)",
@@ -268,18 +268,6 @@ function Skills() {
         </div>
 
       </div>
-
-      {/* Responsive */}
-      <style>{`
-        @media (max-width: 768px) {
-          .skills-grid {
-            grid-template-columns: 1fr !important;
-          }
-          #skills {
-            padding: 80px 24px !important;
-          }
-        }
-      `}</style>
 
     </section>
   )

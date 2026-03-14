@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from "react"
+import { useReducedMotion } from "framer-motion"
 import { useTheme } from "../context/ThemeContext"
 
 /**
@@ -29,9 +30,11 @@ function CanvasBg() {
   const canvasRef  = useRef(null)
   const particles  = useRef([])
   const rafId      = useRef(null)
+  const isRunning  = useRef(false)
   const mounted    = useRef(true)
   const mousePos   = useRef({ x: -9999, y: -9999 })
   const { isDark } = useTheme()
+  const shouldReduceMotion = useReducedMotion()
 
   // ── Build a single particle ──────────────────────────────
   const makeParticle = useCallback((w, h) => ({
@@ -123,6 +126,7 @@ function CanvasBg() {
       }
     }
 
+    if (!isRunning.current) return
     rafId.current = requestAnimationFrame(draw)
   }, [isDark])
 
@@ -130,6 +134,17 @@ function CanvasBg() {
   useEffect(() => {
     mounted.current = true
     init()
+
+    if (shouldReduceMotion) {
+      const canvas = canvasRef.current
+      if (canvas) {
+        const ctx = canvas.getContext("2d")
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+      }
+      return () => {
+        mounted.current = false
+      }
+    }
 
     const onResize = () => {
       init()
@@ -142,21 +157,37 @@ function CanvasBg() {
       mousePos.current.x = -9999
       mousePos.current.y = -9999
     }
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        isRunning.current = false
+        cancelAnimationFrame(rafId.current)
+        return
+      }
+
+      if (!isRunning.current) {
+        isRunning.current = true
+        rafId.current = requestAnimationFrame(draw)
+      }
+    }
 
     window.addEventListener("resize",     onResize)
     window.addEventListener("mousemove",  onMouseMove)
     window.addEventListener("mouseleave", onMouseLeave)
+    document.addEventListener("visibilitychange", onVisibilityChange)
 
+    isRunning.current = true
     rafId.current = requestAnimationFrame(draw)
 
     return () => {
       mounted.current = false
+      isRunning.current = false
       cancelAnimationFrame(rafId.current)
       window.removeEventListener("resize",     onResize)
       window.removeEventListener("mousemove",  onMouseMove)
       window.removeEventListener("mouseleave", onMouseLeave)
+      document.removeEventListener("visibilitychange", onVisibilityChange)
     }
-  }, [init, draw])
+  }, [init, draw, shouldReduceMotion])
 
   return (
     <canvas

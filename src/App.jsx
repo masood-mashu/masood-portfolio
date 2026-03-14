@@ -1,8 +1,8 @@
 import { ThemeProvider } from "./context/ThemeContext"
+import { MotionConfig } from "framer-motion"
 
 // ── Fixed / background layer ──────────────────────────────
 import ScrollProgress  from "./components/ScrollProgress"
-import CustomCursor    from "./components/CustomCursor"
 import CanvasBg        from "./components/CanvasBg"
 
 // ── Layout ────────────────────────────────────────────────
@@ -27,12 +27,10 @@ import Contact         from "./components/Contact"
  *  2  — Orb glows (position fixed, pointer-events none)
  *  2  — All section content (position relative, z-index 2)
  *  50 — Navbar (position fixed)
- *  9998 — CustomCursor ring
- *  9999 — CustomCursor dot + ScrollProgress bar
+ *  9999 — ScrollProgress bar
  *
  * Removed vs React portfolio:
  *  ❌ ParticlesBg   → replaced by CanvasBg
- *  ❌ CursorGlow    → replaced by CustomCursor
  */
 
 function AppContent() {
@@ -41,7 +39,6 @@ function AppContent() {
 
       {/* ── Fixed UI layer ─────────────────────────────── */}
       <ScrollProgress />
-      <CustomCursor />
       <CanvasBg />
 
       {/* ── Glow orbs (from HTML portfolio) ───────────── */}
@@ -72,7 +69,9 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <MotionConfig reducedMotion="user">
+        <AppContent />
+      </MotionConfig>
     </ThemeProvider>
   )
 }

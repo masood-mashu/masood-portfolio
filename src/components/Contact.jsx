@@ -44,7 +44,8 @@ function Contact() {
   return (
     <section
       id="contact"
-      style={{ padding: "100px 60px", position: "relative", zIndex: 2 }}
+      className="contact-section"
+      style={{ position: "relative", zIndex: 2 }}
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
@@ -96,13 +97,13 @@ function Contact() {
               >
                 {/* Pulsing dot */}
                 <span
+                  className="pulse-dot"
                   style={{
                     width:        "6px",
                     height:       "6px",
                     borderRadius: "50%",
                     background:   "var(--accent)",
                     display:      "inline-block",
-                    animation:    "pulse 2s ease-in-out infinite",
                   }}
                 />
                 Open to Opportunities
@@ -165,14 +166,14 @@ function Contact() {
               <motion.a
                 key={c.label}
                 href={c.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={c.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel={c.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ x: 8 }}
-                className="card"
+                className="card contact-card"
                 style={{
                   borderRadius:   "4px",
                   padding:        "20px 24px",
@@ -180,7 +181,6 @@ function Contact() {
                   alignItems:     "center",
                   gap:            "18px",
                   textDecoration: "none",
-                  cursor:         "none",
                 }}
               >
                 {/* Icon */}
@@ -235,26 +235,6 @@ function Contact() {
 
         </div>
       </div>
-
-      {/* Styles */}
-      <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50%       { opacity: 0.4; transform: scale(0.85); }
-        }
-        .card:hover .contact-arrow {
-          opacity: 1 !important;
-        }
-        @media (max-width: 768px) {
-          .contact-grid {
-            grid-template-columns: 1fr !important;
-            gap: 48px !important;
-          }
-          #contact {
-            padding: 80px 24px !important;
-          }
-        }
-      `}</style>
 
     </section>
   )

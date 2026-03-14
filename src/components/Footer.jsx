@@ -46,18 +46,6 @@ function Footer() {
       >
         Bangalore, India 🇮🇳
       </span>
-
-      {/* Responsive */}
-      <style>{`
-        @media (max-width: 600px) {
-          .footer-inner {
-            flex-direction: column !important;
-            gap: 10px !important;
-            text-align: center !important;
-            padding: 24px !important;
-          }
-        }
-      `}</style>
     </footer>
   )
 }

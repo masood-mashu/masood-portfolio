@@ -72,12 +72,12 @@ function Navbar() {
 
         {/* ── Logo ─────────────────────────────────────────── */}
         <motion.a
-          href="#"
+          href="#hero"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
           className="font-mono text-lg font-bold tracking-widest"
-          style={{ color: "var(--accent)", cursor: "none" }}
+          style={{ color: "var(--accent)" }}
         >
           M<span style={{ color: "var(--text)" }}>.</span>Masood
         </motion.a>
@@ -128,7 +128,6 @@ function Navbar() {
               className="relative w-12 h-6 rounded-full flex items-center px-1 transition-all duration-300"
               style={{
                 background: isDark ? "var(--accent)" : "var(--border)",
-                cursor: "none",
               }}
             >
               <motion.div
@@ -149,7 +148,6 @@ function Navbar() {
             onClick={() => setIsDark(!isDark)}
             aria-label="Toggle theme"
             className="text-base select-none"
-            style={{ cursor: "none" }}
           >
             {isDark ? "🌙" : "☀️"}
           </button>
@@ -159,7 +157,6 @@ function Navbar() {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
             className="flex flex-col gap-1.5 p-1"
-            style={{ cursor: "none" }}
           >
             {[0, 1, 2].map(i => (
               <motion.span
@@ -214,7 +211,6 @@ function Navbar() {
                         ? "var(--accent)"
                         : "var(--text-muted)",
                       borderBottom: "1px solid var(--border)",
-                      cursor: "none",
                     }}
                   >
                     {label}

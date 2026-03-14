@@ -95,14 +95,8 @@ body {
   background-color: var(--bg);
   color: var(--text);
   overflow-x: hidden;
-  /* hide default cursor — CustomCursor.jsx handles it */
-  cursor: none;
+  cursor: auto;
   transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-/* re-show cursor on touch devices */
-@media (hover: none) {
-  body { cursor: auto; }
 }
 
 .portfolio-root {
@@ -157,6 +151,18 @@ body {
   background-clip: text;
 }
 
+.hero-section {
+  padding: 120px 60px 80px;
+}
+
+.about-section,
+.featured-section,
+.projects-section,
+.skills-section,
+.contact-section {
+  padding: 100px 60px;
+}
+
 /* ── CARDS ───────────────────────────────────────────────── */
 .card {
   background: var(--bg-card);
@@ -187,7 +193,6 @@ body {
   letter-spacing: 2px;
   text-transform: uppercase;
   text-decoration: none;
-  cursor: none;
   transition: background 0.3s, transform 0.2s;
   clip-path: polygon(
     0 0,
@@ -213,7 +218,6 @@ body {
   padding: 12px 28px;
   border-radius: 10px;
   text-decoration: none;
-  cursor: none;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .btn-glow:hover {
@@ -231,7 +235,6 @@ body {
   padding: 12px 28px;
   border-radius: 10px;
   text-decoration: none;
-  cursor: none;
   transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 .btn-outline:hover {
@@ -250,7 +253,6 @@ body {
   padding: 12px 28px;
   border-radius: 10px;
   text-decoration: none;
-  cursor: none;
   transition: border-color 0.2s, color 0.2s, transform 0.2s;
 }
 .btn-outline-dim:hover {
@@ -311,7 +313,6 @@ body {
   letter-spacing: 2px;
   text-transform: uppercase;
   text-decoration: none;
-  cursor: none;
   transition: color 0.3s;
   position: relative;
 }
@@ -411,6 +412,37 @@ body {
   text-transform: uppercase;
 }
 
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.85); }
+}
+
+.pulse-dot {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.contact-card:hover .contact-arrow {
+  opacity: 1;
+}
+
+.feature-tile:hover {
+  border-color: var(--border-hover);
+}
+
+.project-link-live:hover {
+  gap: 10px;
+}
+
+.project-link-github:hover {
+  color: var(--text);
+}
+
+@media (max-width: 480px) {
+  .scroll-indicator {
+    left: 24px;
+  }
+}
+
 /* ── GLOWING ORBS (from HTML portfolio) ──────────────────── */
 .orb {
   position: fixed;
@@ -439,36 +471,6 @@ body {
 @keyframes orbFloat {
   0%, 100% { transform: translate(0, 0); }
   50%       { transform: translate(30px, -30px); }
-}
-
-/* ── CUSTOM CURSOR (styled here, controlled in CustomCursor.jsx) */
-.cursor-dot {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.15s ease;
-}
-.cursor-ring {
-  position: fixed;
-  width: 34px;
-  height: 34px;
-  border: 1.5px solid var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  mix-blend-mode: difference;
-  transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
-}
-.cursor-dot.hovered  { transform: scale(2.5); }
-.cursor-ring.hovered {
-  width: 50px;
-  height: 50px;
-  opacity: 0.6;
 }
 
 /* ── SCROLL BAR ──────────────────────────────────────────── */
@@ -530,6 +532,42 @@ body {
 }
 
 @media (max-width: 768px) {
+  .about-section,
+  .featured-section,
+  .projects-section,
+  .skills-section,
+  .contact-section,
+  .hero-section {
+    padding: 80px 24px;
+  }
+
+  .hero-section {
+    padding-top: 100px;
+  }
+
+  .about-grid,
+  .featured-grid,
+  .contact-grid,
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-grid {
+    gap: 40px;
+  }
+
+  .featured-grid {
+    gap: 36px;
+  }
+
+  .contact-grid {
+    gap: 48px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .orb-1 { opacity: 0.08; }
   .orb-2 { opacity: 0.08; }
   .btn-primary,
@@ -538,5 +576,49 @@ body {
   .btn-outline-dim {
     padding: 11px 22px;
     font-size: 11px;
+  }
+}
+
+@media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .marquee-track,
+  .orb-1,
+  .orb-2,
+  .pulse-dot {
+    animation: none;
+  }
+
+  .project-card,
+  .card,
+  .btn-primary,
+  .btn-outline,
+  .btn-outline-dim,
+  .btn-glow,
+  .nav-link,
+  .project-link-live,
+  .project-link-github {
+    transition: none;
   }
 }

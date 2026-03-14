@@ -1,4 +1,4 @@
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 import { TypeAnimation } from "react-type-animation"
 
 /**
@@ -30,11 +30,65 @@ const itemVariants = {
   show:   { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
 }
 
+const HERO_TAG = "// Data Science & Analytics"
+const HERO_NAME = {
+  first: "Mohammed",
+  last: "Masood",
+}
+const HERO_SUBTITLE = "BIT Bangalore · CSE-DS · 3rd Year"
+const HERO_TYPING_SEQUENCE = [
+  "ML models.",
+  2000,
+  "data dashboards.",
+  2000,
+  "insights from data.",
+  2000,
+  "clean visualizations.",
+  2000,
+  "end-to-end pipelines.",
+  2000,
+]
+const HERO_ACCESSIBLE_TYPING_TEXT = "I build ML models, data dashboards, insights from data, clean visualizations, and end-to-end pipelines."
+const HERO_CTA_LINKS = [
+  {
+    href: "#projects",
+    className: "btn-primary",
+    label: "View Projects",
+  },
+  {
+    href: "#contact",
+    className: "btn-outline font-display",
+    label: "Get In Touch",
+    style: { borderRadius: "3px" },
+  },
+  {
+    href: "/Mohammed-Masood-Resume.pdf",
+    className: "btn-outline-dim font-display",
+    label: "Resume ↗",
+    style: { borderRadius: "3px" },
+    target: "_blank",
+    rel: "noopener noreferrer",
+  },
+]
+const VISUALLY_HIDDEN_STYLE = {
+  position: "absolute",
+  width: "1px",
+  height: "1px",
+  padding: 0,
+  margin: "-1px",
+  overflow: "hidden",
+  clip: "rect(0, 0, 0, 0)",
+  whiteSpace: "nowrap",
+  border: 0,
+}
+
 function Hero() {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <section
-      className="min-h-screen flex flex-col justify-center relative overflow-hidden"
-      style={{ padding: "120px 60px 80px" }}
+      id="hero"
+      className="hero-section min-h-screen flex flex-col justify-center relative overflow-hidden"
     >
 
       {/* ── Background orb ───────────────────────────────── */}
@@ -52,46 +106,46 @@ function Hero() {
           opacity:      0.12,
           pointerEvents: "none",
           zIndex:       0,
-          animation:    "orbFloat 8s ease-in-out infinite",
+          animation:    shouldReduceMotion ? "none" : "orbFloat 8s ease-in-out infinite",
         }}
       />
 
       {/* ── Content ──────────────────────────────────────── */}
       <motion.div
-        variants={containerVariants}
-        initial="hidden"
+        variants={shouldReduceMotion ? undefined : containerVariants}
+        initial={shouldReduceMotion ? false : "hidden"}
         animate="show"
         style={{ position: "relative", zIndex: 2, maxWidth: "900px" }}
       >
 
         {/* Tag — "// Data Science & Analytics" */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={shouldReduceMotion ? undefined : itemVariants}>
           <span
             className="font-mono text-xs tracking-widest uppercase"
             style={{ color: "var(--accent)" }}
           >
-            // Data Science &amp; Analytics
+            {HERO_TAG}
           </span>
         </motion.div>
 
         {/* Name */}
         <motion.h1
-          variants={itemVariants}
+          variants={shouldReduceMotion ? undefined : itemVariants}
           className="font-display font-extrabold leading-none"
           style={{
-            fontSize:    "clamp(52px, 9vw, 108px)",
+            fontSize:    "clamp(40px, 8vw, 108px)",
             marginTop:   "20px",
             marginBottom: "8px",
             color:       "var(--text)",
           }}
         >
-          Mohammed<br />
-          <span className="hero-gradient">Masood</span>
+          {HERO_NAME.first}<br />
+          <span className="hero-gradient">{HERO_NAME.last}</span>
         </motion.h1>
 
         {/* Subtitle */}
         <motion.p
-          variants={itemVariants}
+          variants={shouldReduceMotion ? undefined : itemVariants}
           className="font-mono"
           style={{
             fontSize:     "14px",
@@ -101,12 +155,12 @@ function Hero() {
             marginBottom:  "36px",
           }}
         >
-          BIT Bangalore &nbsp;·&nbsp; CSE-DS &nbsp;·&nbsp; 3rd Year
+          {HERO_SUBTITLE}
         </motion.p>
 
         {/* Typing animation */}
         <motion.div
-          variants={itemVariants}
+          variants={shouldReduceMotion ? undefined : itemVariants}
           style={{
             fontSize:     "clamp(18px, 2.8vw, 26px)",
             color:        "var(--text)",
@@ -115,62 +169,42 @@ function Hero() {
             fontFamily:   "'DM Sans', sans-serif",
           }}
         >
-          I build&nbsp;
-          <TypeAnimation
-            sequence={[
-              "ML models.",          2000,
-              "data dashboards.",    2000,
-              "insights from data.", 2000,
-              "clean visualizations.", 2000,
-              "end-to-end pipelines.", 2000,
-            ]}
-            speed={55}
-            repeat={Infinity}
-            style={{ color: "var(--accent)" }}
-          />
+          <span style={VISUALLY_HIDDEN_STYLE}>{HERO_ACCESSIBLE_TYPING_TEXT}</span>
+          <span aria-hidden="true">
+            I build&nbsp;
+            {shouldReduceMotion ? (
+              <span style={{ color: "var(--accent)" }}>ML models.</span>
+            ) : (
+              <TypeAnimation
+                sequence={HERO_TYPING_SEQUENCE}
+                speed={55}
+                repeat={Infinity}
+                style={{ color: "var(--accent)" }}
+              />
+            )}
+          </span>
         </motion.div>
 
         {/* CTA buttons */}
         <motion.div
-          variants={itemVariants}
+          variants={shouldReduceMotion ? undefined : itemVariants}
           style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}
         >
-          <a href="#projects" className="btn-primary">
-            View Projects
-          </a>
-          <a
-            href="#contact"
-            className="btn-outline font-display"
-            style={{ borderRadius: "3px" }}
-          >
-            Get In Touch
-          </a>
-          <a
-            href="/Mohammed-Masood-Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline-dim font-display"
-            style={{ borderRadius: "3px" }}
-          >
-            Resume ↗
-          </a>
+          {HERO_CTA_LINKS.map(({ href, className, label, rel, style, target }) => (
+            <a
+              key={label}
+              href={href}
+              className={className}
+              style={style}
+              target={target}
+              rel={rel}
+            >
+              {label}
+            </a>
+          ))}
         </motion.div>
 
       </motion.div>
-
-      {/* ── Responsive overrides ─────────────────────────── */}
-      <style>{`
-        @media (max-width: 768px) {
-          .hero-section {
-            padding: 100px 24px 80px !important;
-          }
-        }
-        @media (max-width: 480px) {
-          .scroll-indicator {
-            left: 24px !important;
-          }
-        }
-      `}</style>
 
     </section>
   )
