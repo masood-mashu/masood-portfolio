@@ -106,14 +106,7 @@ function Projects() {
         </motion.h2>
 
         {/* ── Project cards grid ──────────────────────────── */}
-        <div
-          style={{
-            display:             "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap:                 "2px",
-          }}
-          className="projects-grid"
-        >
+        <div className="projects-grid">
           {PROJECTS.map((p, i) => (
             <motion.div
               key={p.number}

@@ -77,10 +77,6 @@ function About() {
         {/* ── Two column grid ─────────────────────────────── */}
         <div
           style={{
-            display:             "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap:                 "60px",
-            alignItems:          "start",
             marginBottom:        "60px",
           }}
           className="about-grid"
@@ -188,14 +184,7 @@ function About() {
         </div>
 
         {/* ── Stats row ───────────────────────────────────── */}
-        <div
-          style={{
-            display:             "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap:                 "2px",
-          }}
-          className="stats-grid"
-        >
+        <div className="stats-grid">
           {STATS.map((s, i) => (
             <motion.div
               key={s.label}

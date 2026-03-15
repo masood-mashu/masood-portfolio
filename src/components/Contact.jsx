@@ -61,15 +61,7 @@ function Contact() {
         </motion.div>
 
         {/* ── Two column layout ───────────────────────────── */}
-        <div
-          style={{
-            display:             "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap:                 "80px",
-            alignItems:          "start",
-          }}
-          className="contact-grid"
-        >
+        <div className="contact-grid">
 
           {/* Left — text + resume CTA */}
           <motion.div

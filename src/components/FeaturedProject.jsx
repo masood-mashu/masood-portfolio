@@ -117,15 +117,7 @@ function FeaturedProject() {
             </div>
 
             {/* Two column layout */}
-            <div
-              style={{
-                display:             "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap:                 "48px",
-                alignItems:          "center",
-              }}
-              className="featured-grid"
-            >
+            <div className="featured-grid">
 
               {/* Left — info */}
               <div>
@@ -207,13 +199,7 @@ function FeaturedProject() {
               </div>
 
               {/* Right — feature grid */}
-              <div
-                style={{
-                  display:             "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap:                 "2px",
-                }}
-              >
+              <div className="feature-tiles-grid">
                 {FEATURES.map((f, i) => (
                   <motion.div
                     key={f.label}

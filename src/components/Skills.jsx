@@ -208,14 +208,7 @@ function Skills() {
         </motion.div>
 
         {/* ── Skill group grid ────────────────────────────── */}
-        <div
-          style={{
-            display:             "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap:                 "2px",
-          }}
-          className="skills-grid"
-        >
+        <div className="skills-grid">
           {SKILL_GROUPS.map((group, gi) => (
             <motion.div
               key={group.category}
