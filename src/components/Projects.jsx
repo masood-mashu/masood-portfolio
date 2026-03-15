@@ -31,11 +31,11 @@ const PROJECTS = [
   {
     number: "02",
     title:  "House Price Predictor",
-    desc:   "Regression-based ML project on the California Housing dataset. Random Forest as the primary model (R² ~80.5%), with full EDA, feature engineering, and an interactive Streamlit dashboard.",
-    tech:   ["Python", "Random Forest", "Scikit-learn", "Streamlit", "Seaborn"],
-    live:   null,
-    github: null,
-    status: "In Progress",
+    desc:   "ML web app predicting California housing prices. Includes EDA, model comparison (Linear Regression, Ridge, Lasso, Gradient Boosting, Random Forest), and a live predictor. Random Forest achieved the best R² of 80.5%.",
+    tech:   ["Python", "Streamlit", "Scikit-learn", "Random Forest", "Pandas", "Plotly"],
+    live:   "https://house-price-predictor-live.streamlit.app/",
+    github: "https://github.com/masood-mashu/house-price-predictor",
+    status: "Live",
     icon:   <Home size={26} />,
   },
   {
